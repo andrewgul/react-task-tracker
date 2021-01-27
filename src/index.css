@@ -11,3 +11,23 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.add-task-form {
+  width: 100%;
+  display: flex;
+  margin: 20px;
+  justify-content: space-between;
+}
+
+.form-control {
+  display: flex;
+  flex-direction: column;
+}
+
+.task {
+  border: 3px solid grey;
+}
+
+.task-reminder {
+  border: 3px solid lightgreen;
+}
