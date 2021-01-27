@@ -1,7 +1,10 @@
 import Header from './components/Header'
+import Footer from './components/Footer'
 import Tasks from './components/Tasks'
 import AddTask from './components/AddTask'
+import About from './components/About'
 import { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 function App() {
   const title = 'task tracker'
@@ -23,7 +26,6 @@ function App() {
     const res = await fetch(url)
     const data = await res.json()
 
-    console.log(data)
     return data
   }
 
@@ -33,7 +35,6 @@ function App() {
     const res = await fetch(url)
     const data = await res.json()
 
-    console.log(data)
     return data
   }
 
@@ -101,19 +102,27 @@ function App() {
   }
 
   return (
-    <div className="container">
-      <Header 
-        title={title} 
-        onAdd={() => { setShowAddTask(!showAddTask) }} 
-        showAdd={showAddTask}
-      />
-      {showAddTask && <AddTask onAdd={addTask}/>}
-      {tasks.length > 0 ? (
-        <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/>
-      ) : (
-        'no tasks found'
-      )}
-    </div>
+    <Router>
+      <div className="container">
+        <Header 
+          title={title} 
+          onAdd={() => { setShowAddTask(!showAddTask) }} 
+          showAdd={showAddTask}
+        />
+        <Route path='/' exact render={() => (
+          <>
+            {showAddTask && <AddTask onAdd={addTask}/>}
+            {tasks.length > 0 ? (
+              <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/>
+            ) : (
+              'no tasks found'
+            )}
+          </>
+        )}/>
+        <Route path='/about' component={About}/>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
